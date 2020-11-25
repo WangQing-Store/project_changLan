@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_ldcsmp-web" default="compile.module.ldcsmp-web">
+  <dirname property="module.ldcsmp-web.basedir" file="${ant.file.module_ldcsmp-web}"/>
+
+  <property name="module.jdk.home.ldcsmp-web" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.ldcsmp-web" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.ldcsmp-web" value="${project.jdk.classpath}"/>
+
+  <property name="compiler.args.ldcsmp-web" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+
+  <property name="ldcsmp-web.output.dir" value="${module.ldcsmp-web.basedir}/../classes/production/ldcsmp-web"/>
+  <property name="ldcsmp-web.testoutput.dir" value="${module.ldcsmp-web.basedir}/../classes/test/ldcsmp-web"/>
+
+  <path id="ldcsmp-web.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+
+  <path id="ldcsmp-web.module.production.classpath">
+    <path refid="${module.jdk.classpath.ldcsmp-web}"/>
+  </path>
+
+  <path id="ldcsmp-web.runtime.production.module.classpath">
+    <pathelement location="${ldcsmp-web.output.dir}"/>
+  </path>
+
+  <path id="ldcsmp-web.module.classpath">
+    <path refid="${module.jdk.classpath.ldcsmp-web}"/>
+    <pathelement location="${ldcsmp-web.output.dir}"/>
+  </path>
+
+  <path id="ldcsmp-web.runtime.module.classpath">
+    <pathelement location="${ldcsmp-web.testoutput.dir}"/>
+    <pathelement location="${ldcsmp-web.output.dir}"/>
+  </path>
+
+
+  <patternset id="excluded.from.module.ldcsmp-web">
+    <patternset refid="ignored.files"/>
+  </patternset>
+
+  <patternset id="excluded.from.compilation.ldcsmp-web">
+    <patternset refid="excluded.from.module.ldcsmp-web"/>
+  </patternset>
+
+
+  <target name="compile.module.ldcsmp-web" depends="compile.module.ldcsmp-web.production,compile.module.ldcsmp-web.tests" description="Compile module ldcsmp-web"/>
+
+  <target name="compile.module.ldcsmp-web.production" depends="register.custom.compilers" description="Compile module ldcsmp-web; production classes"/>
+
+  <target name="compile.module.ldcsmp-web.tests" depends="register.custom.compilers,compile.module.ldcsmp-web.production" description="compile module ldcsmp-web; test classes" unless="skip.tests"/>
+
+  <target name="clean.module.ldcsmp-web" description="cleanup module">
+    <delete dir="${ldcsmp-web.output.dir}"/>
+    <delete dir="${ldcsmp-web.testoutput.dir}"/>
+  </target>
+</project>
